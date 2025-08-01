@@ -1,27 +1,48 @@
-This project builds a machine learning-based web application for detecting mental health conditions from textual statements. The app supports multiple input methods (CSV, image with text, direct text) and classifies them into categories like Depression, Anxiety, Stress, etc.
-The app is built using Streamlit for the frontend and NLP + ML (TF-IDF + SVM/Naive Bayes) for backend processing.
-Features
- Upload CSV files with mental health statements for EDA + training
+# Mental Health Text Classifier
 
- Image-to-text support via OCR (pytesseract)
+A machine learning–powered web application that detects mental health conditions from textual input. The system supports multiple input modes (CSV bulk upload, image with embedded text via OCR, and direct text entry) and classifies statements into categories such as **Depression**, **Anxiety**, **Stress**, **Normal**, etc. Built with **Streamlit** for the frontend and a hybrid **NLP + ML pipeline** (TF-IDF, SMOTE, SVM / Bernoulli Naive Bayes) for backend processing.
 
- Manual text input classification
+## 🚀 Features
 
- Visualizations (bar plots, histograms, violin plots, KDE, word clouds, heatmaps)
+- **Multi-modal input**
+  - CSV upload for bulk data exploration and training
+  - Image-to-text extraction via OCR (`pytesseract`)
+  - Manual single-statement classification
+- **Flexible preprocessing**
+  - Lowercasing, punctuation removal
+  - Lemmatization via NLTK, spaCy, or both combined
+  - Optional multiprocessing for speed
+- **Rich feature engineering**
+  - TF-IDF vectorization with unigram & bigram support
+  - Configurable feature dimensionality (e.g., 3,000–500,000)
+  - Class balancing using **SMOTE**
+- **Modeling**
+  - Primary: Support Vector Machine (SVM)
+  - Alternative: Bernoulli Naive Bayes
+- **Prediction**
+  - Confidence score output
+  - Entity extraction of mental-health-related terms
+- **Exploratory Data Analysis (EDA) & Visualizations**
+  - Category distributions
+  - Statement length histograms (with outlier handling)
+  - Boxplots & violin plots per label
+  - Word clouds per class
+  - Word frequency heatmaps
 
- Preprocessing options: NLTK, spaCy, or Combined
+## 🗂 Dataset Format
 
- Model training with TF-IDF + SMOTE + SVM
+Input dataset must be a CSV with the following columns:
 
- Prediction with confidence scores
+| Column Name | Description                                      |
+|-------------|--------------------------------------------------|
+| `statement`  | Text describing the person's thoughts/feelings    |
+| `status`     | Mental health label (e.g., Depression, Anxiety)  |
 
- Entity extraction for mental health terms
+Example row:
+`csv
+statement,status
+"I have trouble sleeping and feel anxious all the time",Anxiety
 
-Dataset
-The dataset should be in CSV format with the following columns:
-Column Name	Description
-statement	A text describing the person's experience
-status	Mental health label (e.g., Depression, Normal, Anxiety, etc.)
 
 Installation
 1) Clone the repository:
@@ -59,19 +80,92 @@ Model Pipeline:
 9)SMOTE to handle class imbalance
 Training
 
-Support Vector Machine (SVM)
+health
 
-Bernoulli Naive Bayes (as alternative)
+📊 Evaluation Metrics
+Accuracy
 
-Evaluation
+Precision, Recall, F1-score (per class)
 
 Classification report
 
-Accuracy, precision, recall, F1-score
+Visual diagnostic plots:
 
-Visualizations:
-Distribution of mental health categories
-Statement length histograms (before/after outlier removal)
-Boxplots & violin plots across categories
-Word clouds per label
-Word frequency heatmaps
+Label distribution
+
+Statement length analysis
+
+Word clouds
+
+Heatmaps and violin/box plots
+
+🧪 Example Usage
+Single text classification
+Enter a textual statement like:
+
+"I feel hopeless and can't concentrate on anything."
+
+The system will output:
+
+Predicted label: Depression
+
+Confidence: 0.87
+
+Key extracted terms: ["hopeless", "concentrate"]
+
+Bulk training
+Upload a CSV with labeled statements, explore class balance, train the model, and visualize how features distribute across labels.
+
+🧩 Configurable Options
+Choice of lemmatizer: NLTK, spaCy, or both
+
+TF-IDF n-gram range
+
+Feature count cap
+
+SMOTE toggle
+
+Choice of classifier (SVM or Naive Bayes)
+
+📦 Dependencies
+Key libraries used:
+
+streamlit
+
+scikit-learn
+
+imblearn (for SMOTE)
+
+NLTK
+
+spaCy
+
+pytesseract
+
+matplotlib, seaborn
+
+wordcloud
+
+pandas, numpy
+
+(See requirements.txt for full list)
+
+🔍 Potential Applications
+Mental health screening tools
+
+Early warning systems in counseling platforms
+
+Research dashboards for psychology / behavioral analysis
+
+Integration into telehealth or support chatbots
+
+🛠️ Development & Contribution
+Fork the repo
+
+Create a feature branch
+
+Commit changes with clear messages
+
+Open a pull request describing your updates
+
+
